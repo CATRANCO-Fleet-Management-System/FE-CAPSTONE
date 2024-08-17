@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       height: {
-        120: "32rem", // Custom height value
+        120: "32rem", 
+        160: "45rem",
       },
       strokeWidth: {
         1: "1px",
