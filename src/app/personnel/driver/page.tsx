@@ -47,11 +47,11 @@ const DashboardHeader = () => {
         </div>
         <div className="Options flex justify-center -mt-7">
           <ul className="listOptions flex flex-col mt-5 space-y-8 justify-center text-gray-500">
-            <li className="menu-item flex flex-row items-center group text-violet-700">
+            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
               <FaChartBar size={25} className="mr-3 " />
               <a href="#">Dashboard</a>
             </li>
-            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
+            <li className="menu-item flex flex-row items-center group  text-violet-700 ">
               <FaUser size={25} className="mr-3 " />
               <a href="#">Bus Personnel Management</a>
             </li>
