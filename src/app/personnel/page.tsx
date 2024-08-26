@@ -66,7 +66,7 @@ const RecordBox = ({ driverId, driverName }) => {
       <div className="logo flex-shrink-0">
         <FaUser size={42} className="rounded-full border border-gray-400 p-2" />
       </div>
-      <div className="title flex flex-1 space-x-8 ml-8">
+      <div className="title flex flex-1 space-x-96 ml-8">
         <h1 className="type-notif black font-normal">{driverName}</h1>
         <h1 className="type-notif text-gray-500 font-normal">
           ID : <span className="id-number">{driverId}</span>
@@ -97,19 +97,37 @@ const RecordBox = ({ driverId, driverName }) => {
   );
 };
 
-// Records Component
-const Records = () => {
+const Records = ({ type }) => {
+  const driverRecords = [
+    { id: "001", name: "Driver 1" },
+    { id: "002", name: "Driver 2" },
+    { id: "003", name: "Driver 3" },
+    { id: "004", name: "Driver 4" },
+    { id: "005", name: "Driver 5" },
+  ];
+
+  const conductorRecords = [
+    { id: "0005", name: "Conductor 1" },
+    { id: "0006", name: "Conductor 2" },
+    { id: "0007", name: "Conductor 3" },
+    { id: "0008", name: "Conductor 4" },
+    { id: "0009", name: "Conductor 5" },
+  ];
+
+  const records = type === "drivers" ? driverRecords : conductorRecords;
+
   return (
     <div className="record-box w-5/6 h-96 space-y-2">
-      <RecordBox driverId="001" driverName="Driver 1" />
-      <RecordBox driverId="002" driverName="Driver 2" />
-      <RecordBox driverId="003" driverName="Driver 3" />
-      <RecordBox driverId="004" driverName="Driver 4" />
-      <RecordBox driverId="005" driverName="Driver 5" />
+      {records.map((record) => (
+        <RecordBox
+          key={record.id}
+          driverId={record.id}
+          driverName={record.name}
+        />
+      ))}
     </div>
   );
 };
-
 // Pagination Component
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handlePageChange = (page) => {
@@ -167,7 +185,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   );
 };
 
-// DashboardHeader Component
 const DashboardHeader = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [activeButton, setActiveButton] = useState("drivers");
@@ -283,7 +300,10 @@ const DashboardHeader = () => {
           </div>
         </div>
         <div className="content flex flex-col h-full">
-          <ButtonGroup activeButton={activeButton} onClick={handleButtonClick} />
+          <ButtonGroup
+            activeButton={activeButton}
+            onClick={handleButtonClick}
+          />
           <div className="options flex items-center space-x-10 p-4 w-9/12 m-5 ml-10">
             {/* Search Bar */}
             <input
@@ -306,7 +326,7 @@ const DashboardHeader = () => {
           </div>
           <div className="records">
             <div className="output flex mt-4 items-center ml-14">
-              <Records />
+              <Records type={activeButton} />
             </div>
           </div>
           {/* Pagination Component */}
