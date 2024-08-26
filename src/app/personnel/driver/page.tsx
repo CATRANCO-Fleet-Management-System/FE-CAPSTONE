@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { Input } from "@/components/ui/input";
 import {
   FaUser,
   FaBus,
@@ -35,6 +36,40 @@ const DashboardHeader = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const PhotoUpload = () => {
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setSelectedImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    return (
+      <div className="relative w-64 h-64 bg-gray-100 border-2 border-dashed border-gray-300 rounded-full flex items-center justify-center cursor-pointer overflow-hidden">
+        <input
+          type="file"
+          id="photoUpload"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="absolute inset-0 opacity-0"
+        />
+        {selectedImage ? (
+          <img
+            src={selectedImage}
+            alt="Profile Preview"
+            className="w-full h-full object-cover rounded-full"
+          />
+        ) : (
+          <span className="text-gray-500 text-center">Add Profile Photo</span>
+        )}
+      </div>
+    );
+  };
   return (
     <section className="h-screen flex flex-row bg-white ">
       <section className="left w-1/5 flex flex-col">
@@ -77,8 +112,8 @@ const DashboardHeader = () => {
 
       <section className="right w-10/12 bg-slate-200 overflow-y-hidden">
         <div className="header flex flex-row justify-between mt-10">
-          <div className="title ml-10 text-violet-700">
-            <h1 className="font-semibold text-4xl">Dashboard</h1>
+          <div className="title ml-14 text-violet-700">
+            <h1 className="font-semibold text-2xl">Add New Record</h1>
           </div>
           <div className="icon-container flex flex-row mr-14">
             <div className="icons flex flex-row border-r-2 border-gray-400 mr-4 text-violet-700">
@@ -124,96 +159,101 @@ const DashboardHeader = () => {
           </div>
         </div>
         <div className="content flex flex-col h-full">
-          <div className="statuses flex flex-row space-x-10 m-12">
-            <div className="status-container w-1/4 bg-white h-40 rounded-lg border-2 border-violet-400  ">
-              <div className="inside-box flex flex-row  justify-center items-center space-x-5 mt-8">
-                <div className="text text-violet-700 space-y-2">
-                  <h1 className="bus-op text-5xl font-bold">11</h1>
-                  <p className="text-lg">Buses in Operation</p>
-                </div>
-                <div>
-                  <FaBus
-                    size={80}
-                    className="ml-2 cursor-pointer text-violet-400"
+          <div className="forms-container ml-14">
+            <div className="output flex flex-row space-x-2 mt-20">
+              <div className="forms flex w-11/12 bg-white h-160 rounded-lg border-1 border-gray-300">
+                <div className="1st-row  flex-col m-5 ml-14 w-96 space-y-4">
+                  <h1>Employee ID number</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="ID number"
+                  />
+                  <h1>Name</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="Name"
+                  />
+                  <h1>Role</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="ID number"
+                  />
+                  <h1>Liscense Number:</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="Name"
+                  />
+                  <h1>Age</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="ID number"
+                  />
+                  <h1>Gender</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="Name"
+                  />
+                  <h1>Contact Number</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="Name"
                   />
                 </div>
-              </div>
-            </div>
-            <div className="status-container w-1/4 bg-white h-40 rounded-lg border-2 border-violet-400">
-              <div className="inside-box flex flex-row  justify-center items-center space-x-5 mt-8">
-                <div className="text text-violet-700 space-y-2">
-                  <h1 className="bus-op text-5xl font-bold">3</h1>
-                  <p className="text-lg">Buses in Maintenance</p>
-                </div>
-                <div>
-                  <FaCog
-                    size={80}
-                    className="ml-2 cursor-pointer fill-none stroke-violet-400 stroke-20"
+                <div className="2nd-row  flex-col m-5 w-96 space-y-4">
+                  <h1>Person to Contact</h1>
+                  <Input className="h-10 text-lg " type="text" placeholder="" />
+                  <h1>Person to contact phone #</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="Name"
+                  />
+                  <h1>Designated Bus</h1>
+                  <Input className="h-10 text-lg " type="text" placeholder="" />
+                  <h1>Address </h1>
+                  <textarea
+                    className="h-34 text-lg text-left p-2 border-2 align-top w-96 rounded-lg "
+                    placeholder="Address"
+                  />
+                  <h1 className="">Username</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="Username"
+                  />
+                  <h1 className="">Password</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="Username"
                   />
                 </div>
-              </div>
-            </div>
-            <div className="status-container w-1/4 bg-white h-40 rounded-lg border-2 border-violet-400 ">
-              <div className="inside-box flex flex-row  justify-center items-center space-x-5 mt-8">
-                <div className="text text-violet-700 space-y-2">
-                  <h1 className="bus-op text-5xl font-bold">26</h1>
-                  <p className="text-lg">Current Employees</p>
-                </div>
-                <div>
-                  <FaUsers
-                    size={80}
-                    className="ml-2 cursor-pointer text-violet-400"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bus-location ml-12">
-            <h1 className=" text-violet-700 text-xl">Live Bus Locations</h1>
-            <div className="output flex flex-row space-x-2 mt-8">
-              <div className="locations w-2/4 bg-white h-120 rounded-lg border-2 border-violet-400">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7892.321899533787!2d124.64926600265497!3d8.483726629425787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32fff2d03e021631%3A0xbb1fd9c6cf6f9de!2sCogon%20Public%20Market!5e0!3m2!1sen!2sph!4v1723521548337!5m2!1sen!2sph"
-                  className="w-full h-full border-0"
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-
-              <div className="arrow">
-                <FaAngleDoubleRight
-                  size={20}
-                  className="ml-2 cursor-pointer text-violet-800"
-                />
-              </div>
-              <div className="bus-information w-1/4 bg-white h-120 rounded-lg border-2 border-violet-400 ">
-                <div className="infos flex flex-col ml-5">
-                  <div className="header-info flex flex-row mt-10  space-x-5">
-                    <FaBus
-                      size={80}
-                      className="ml-2 cursor-pointer text-violet-600"
-                    />
-                    <h1 className="text-red-600 text-3xl font-bold">BUS 03</h1>
+                <div className="3rd-row ml-14">
+                  <div className="flex flex-col items-center m-14 ">
+                    <PhotoUpload />
                   </div>
-                  <div className="info-text mt-10">
-                    <ul className="list-disc list-inside space-y-4 text-xl">
-                      <li>
-                        <strong>Driver:</strong> James Harden
-                      </li>
-                      <li>
-                        <strong>Conductor:</strong> Stephen Curry
-                      </li>
-                      <li>
-                        <strong>Plate number:</strong> KVJ-232-2313
-                      </li>
-                      <li>
-                        <strong>Trips:</strong> 5
-                      </li>
-                      <li>
-                        <strong>Status:</strong> In Operation
-                      </li>
-                    </ul>
+                  <h1 className="mb-4">Partnered Person</h1>
+                  <Input
+                    className="h-10 text-lg "
+                    type="text"
+                    placeholder="Partner Name"
+                  />
+                </div>
+                <div className="relative ">
+                  <div className="buttons absolute bottom-0 right-0 flex flex-col space-y-5 w-24 mb-8 mr-8">
+                    <button className="flex items-center justify-center px-4 py-2 border-2 border-blue-500 rounded-md text-blue-500 transition-colors duration-300 ease-in-out hover:bg-blue-50">
+                      Add
+                    </button>
+                    <button className="flex items-center justify-center px-4 py-2 border-2 border-red-500 rounded-md text-red-500 transition-colors duration-300 ease-in-out hover:bg-blue-50">
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </div>
