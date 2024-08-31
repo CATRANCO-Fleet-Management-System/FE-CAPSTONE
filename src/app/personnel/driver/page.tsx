@@ -1,20 +1,8 @@
 "use client";
+import Sidebar from "@/app/components/Sidebar";
+import Header from "@/app/components/Header";
 import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-import {
-  FaUser,
-  FaBus,
-  FaChartBar,
-  FaTruck,
-  FaGasPump,
-  FaCommentDots,
-  FaEnvelope,
-  FaBell,
-  FaCaretDown,
-  FaCog,
-  FaUsers,
-  FaAngleDoubleRight,
-} from "react-icons/fa";
 
 const DashboardHeader = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -70,183 +58,111 @@ const DashboardHeader = () => {
       </div>
     );
   };
+
+  // Generate bus numbers
+  const busOptions = Array.from({ length: 11 }, (_, i) => `BUS ${String(i + 1).padStart(3, '0')}`);
+
   return (
     <section className="h-screen flex flex-row bg-white ">
-      <section className="left w-1/5 flex flex-col">
-        <div className="header">
-          <img
-            src="/logo.png"
-            alt="Image Logo"
-            className="object-contain ml-3 -mt-14"
-          />
-        </div>
-        <div className="Options flex justify-center -mt-7">
-          <ul className="listOptions flex flex-col mt-5 space-y-8 justify-center text-gray-500">
-            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
-              <FaChartBar size={25} className="mr-3 " />
-              <a href="#">Dashboard</a>
-            </li>
-            <li className="menu-item flex flex-row items-center group  text-violet-700 ">
-              <FaUser size={25} className="mr-3 " />
-              <a href="#">Bus Personnel Management</a>
-            </li>
-            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
-              <FaBus size={25} className="mr-3" />
-              <a href="#">Bus Profiles</a>
-            </li>
-            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
-              <FaTruck size={25} className="mr-3" />
-              <a href="#">Dispatch Management</a>
-            </li>
-            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
-              <FaGasPump size={25} className="mr-3" />
-              <a href="#">Fuel Monitoring</a>
-            </li>
-            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
-              <FaCommentDots size={25} className="mr-3" />
-              <a href="#">Feedback</a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <Sidebar />
 
-      <section className="right w-10/12 bg-slate-200 overflow-y-hidden">
-        <div className="header flex flex-row justify-between mt-10">
-          <div className="title ml-14 text-violet-700">
-            <h1 className="font-semibold text-2xl">Add New Record</h1>
-          </div>
-          <div className="icon-container flex flex-row mr-14">
-            <div className="icons flex flex-row border-r-2 border-gray-400 mr-4 text-violet-700">
-              <FaEnvelope size={25} className="mr-5 mt-2" />
-              <FaBell size={25} className="mr-5 mt-2" />
-            </div>
-            <div className="profile ml-3 flex items-center justify-center relative">
-              <FaUser
-                size={42}
-                className="rounded-full border border-gray-400 p-2"
-              />
-              <FaCaretDown
-                size={20}
-                className="ml-2 cursor-pointer"
-                onClick={toggleDropdown}
-              />
-              {dropdownVisible && (
-                <div
-                  ref={dropdownRef}
-                  className="absolute right-0 mr-2 mt-36 w-32 text-base bg-white border border-gray-300 rounded shadow-lg"
-                >
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                  >
-                    Edit Profile
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                  >
-                    Settings
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-red-500 font-semibold hover:bg-gray-100"
-                  >
-                    Logout
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="content flex flex-col h-full">
+      <section className="w-full bg-slate-200">
+        <Header title="Add Driver Record" />
+
+        <section className="right w-full overflow-y-hidden">
           <div className="forms-container ml-14">
             <div className="output flex flex-row space-x-2 mt-20">
               <div className="forms flex w-11/12 bg-white h-160 rounded-lg border-1 border-gray-300">
-                <div className="1st-row  flex-col m-5 ml-14 w-96 space-y-4">
+                <div className="1st-row flex-col m-5 ml-14 w-96 space-y-4">
                   <h1>Employee ID number</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
                     placeholder="ID number"
                   />
                   <h1>Name</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
                     placeholder="Name"
                   />
                   <h1>Role</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
-                    placeholder="ID number"
+                    placeholder="Role"
                   />
-                  <h1>Liscense Number:</h1>
+                  <h1>License Number:</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
-                    placeholder="Name"
+                    placeholder="License Number"
                   />
                   <h1>Age</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
-                    placeholder="ID number"
+                    placeholder="Age"
                   />
                   <h1>Gender</h1>
-                  <Input
-                    className="h-10 text-lg "
-                    type="text"
-                    placeholder="Name"
-                  />
+                  <select className="h-10 text-lg border-2 rounded-lg p-2">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
                   <h1>Contact Number</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
-                    placeholder="Name"
+                    placeholder="Contact Number"
                   />
                 </div>
-                <div className="2nd-row  flex-col m-5 w-96 space-y-4">
+                <div className="2nd-row flex-col m-5 w-96 space-y-4">
                   <h1>Person to Contact</h1>
-                  <Input className="h-10 text-lg " type="text" placeholder="" />
+                  <Input className="h-10 text-lg" type="text" placeholder="" />
                   <h1>Person to contact phone #</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
-                    placeholder="Name"
+                    placeholder="Phone Number"
                   />
                   <h1>Designated Bus</h1>
-                  <Input className="h-10 text-lg " type="text" placeholder="" />
-                  <h1>Address </h1>
+                  <select className="h-10 text-lg border-2 rounded-lg p-2">
+                    {busOptions.map((bus, index) => (
+                      <option key={index} value={bus}>
+                        {bus}
+                      </option>
+                    ))}
+                  </select>
+                  <h1>Address</h1>
                   <textarea
-                    className="h-34 text-lg text-left p-2 border-2 align-top w-96 rounded-lg "
+                    className="h-34 text-lg text-left p-2 border-2 align-top w-96 rounded-lg"
                     placeholder="Address"
                   />
-                  <h1 className="">Username</h1>
+                  <h1>Username</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
                     placeholder="Username"
                   />
-                  <h1 className="">Password</h1>
+                  <h1>Password</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
-                    placeholder="Username"
+                    placeholder="Password"
                   />
                 </div>
                 <div className="3rd-row ml-14">
-                  <div className="flex flex-col items-center m-14 ">
+                  <div className="flex flex-col items-center m-14">
                     <PhotoUpload />
                   </div>
                   <h1 className="mb-4">Partnered Person</h1>
                   <Input
-                    className="h-10 text-lg "
+                    className="h-10 text-lg"
                     type="text"
                     placeholder="Partner Name"
                   />
                 </div>
-                <div className="relative ">
+                <div className="relative">
                   <div className="buttons absolute bottom-0 right-0 flex flex-col space-y-5 w-24 mb-8 mr-8">
                     <button className="flex items-center justify-center px-4 py-2 border-2 border-blue-500 rounded-md text-blue-500 transition-colors duration-300 ease-in-out hover:bg-blue-50">
                       Add
@@ -259,7 +175,7 @@ const DashboardHeader = () => {
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </section>
     </section>
   );

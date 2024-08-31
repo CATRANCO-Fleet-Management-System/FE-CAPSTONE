@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import Confirmpopup from "../components/Confirmpopup";
 import { FaUser, FaSearch, FaPlus, FaEllipsisV } from "react-icons/fa";
 
 // ButtonGroup Component
@@ -33,7 +34,7 @@ const ButtonGroup = ({ activeButton, onClick }) => {
 };
 
 // RecordBox Component
-const RecordBox = ({ driverId, driverName }) => {
+const RecordBox = ({ driverId, driverName, onDelete }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -76,7 +77,10 @@ const RecordBox = ({ driverId, driverName }) => {
             <button className="block px-4 py-2 text-black hover:bg-gray-100 w-full text-left">
               Edit
             </button>
-            <button className="block px-4 py-2 text-black hover:bg-gray-100 w-full text-left">
+            <button
+              className="block px-4 py-2 text-black hover:bg-gray-100 w-full text-left"
+              onClick={onDelete} // Trigger the delete action
+            >
               Remove
             </button>
           </div>
@@ -87,7 +91,7 @@ const RecordBox = ({ driverId, driverName }) => {
 };
 
 // Records Component
-const Records = ({ type }) => {
+const Records = ({ type, onDelete }) => {
   const driverRecords = [
     { id: "001", name: "Driver 1" },
     { id: "002", name: "Driver 2" },
@@ -113,6 +117,7 @@ const Records = ({ type }) => {
           key={record.id}
           driverId={record.id}
           driverName={record.name}
+          onDelete={() => onDelete(record.id)} // Pass delete handler
         />
       ))}
     </div>
@@ -182,8 +187,9 @@ const DashboardHeader = () => {
   const [activeButton, setActiveButton] = useState("drivers");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(4); // Set the total number of pages as needed
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [deleteRecordId, setDeleteRecordId] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -202,6 +208,28 @@ const DashboardHeader = () => {
   const handleButtonClick = (buttonId: string) => {
     setActiveButton(buttonId);
   };
+
+  const handleDelete = (recordId: string) => {
+    setDeleteRecordId(recordId);
+    setIsDeletePopupOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (deleteRecordId) {
+      console.log(`Confirmed delete for record ID: ${deleteRecordId}`);
+      setDeleteRecordId(null);
+      setIsDeletePopupOpen(false);
+    }
+  };
+
+  const cancelDelete = () => {
+    setDeleteRecordId(null);
+    setIsDeletePopupOpen(false);
+  };
+
+  // Generate URL based on activeButton
+  const addNewUrl =
+    activeButton === "drivers" ? "/personnel/driver" : "/personnel/conductor";
 
   return (
     <section className="flex flex-row h-screen bg-white">
@@ -228,14 +256,17 @@ const DashboardHeader = () => {
             </button>
 
             {/* Add Now Button */}
-            <button className="flex items-center px-4 py-2 border-2 border-blue-500 rounded-md text-blue-500 transition-colors duration-300 ease-in-out hover:bg-blue-50">
+            <a
+              href={addNewUrl}
+              className="flex items-center px-4 py-2 border-2 border-blue-500 rounded-md text-blue-500 transition-colors duration-300 ease-in-out hover:bg-blue-50"
+            >
               <FaPlus size={22} className="mr-2" />
               Add New
-            </button>
+            </a>
           </div>
           <div className="records flex flex-col h-full">
             <div className="output flex mt-4 items-center ml-14">
-              <Records type={activeButton} />
+              <Records type={activeButton} onDelete={handleDelete} />
             </div>
             {/* Pagination Component */}
             <Pagination
@@ -246,6 +277,11 @@ const DashboardHeader = () => {
           </div>
         </div>
       </div>
+      <Confirmpopup
+        isOpen={isDeletePopupOpen}
+        onClose={cancelDelete}
+        onConfirm={confirmDelete}
+      />
     </section>
   );
 };

@@ -36,6 +36,9 @@ export default function Sidebar() {
     { href: "/feedback", icon: <FaCommentDots size={25} />, label: "Feedback" },
   ];
 
+  // Helper function to check if current path is under the personnel route
+  const isActive = (href) => pathname.startsWith(href);
+
   return (
     <section className="left w-full sm:w-1/5 flex flex-col bg-gray-100">
       <div className="header">
@@ -53,7 +56,9 @@ export default function Sidebar() {
             <li
               key={href}
               className={`menu-item flex items-center space-x-3 p-2 rounded-md transition-colors duration-200 ${
-                pathname === href ? "text-violet-700" : "hover:text-violet-700"
+                isActive(href)
+                  ? "text-violet-700 bg-gray-200"
+                  : "hover:text-violet-700"
               }`}
             >
               {icon}
