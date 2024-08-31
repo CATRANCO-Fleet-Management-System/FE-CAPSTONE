@@ -1,115 +1,41 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import {
-  FaUser,
-  FaCarCrash,
-  FaArrowLeft,
-  FaEnvelope,
-  FaBell,
-  FaCaretDown,
-  FaPen,
-  FaCog,
-} from "react-icons/fa";
+import Sidebar2 from "../components/Sidebar2";
+import Header from "../components/Header";
+import { FaCarCrash, FaCog } from "react-icons/fa";
 
 const DashboardHeader = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  // Close dropdown if clicking outside of it
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownVisible(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <section className="h-screen flex flex-row bg-white ">
-      <section className="left w-1/5 flex flex-col">
-        <div className="header flex flex-row">
-          <FaArrowLeft size={20} className="fixed mt-12 ml-6" />
-          <img
-            src="/logo.png"
-            alt="Image Logo"
-            className="object-contain -mt-14 w-80 ml-10"
-          />
-        </div>
-        <div className="Options flex -mt-7 ml-20">
-          <ul className="listOptions flex flex-col  space-y-8 text-gray-500">
-            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
-              <FaPen size={25} className="mr-3 " />
-              <a href="#">Edit Profile</a>
-            </li>
-            <li className="menu-item flex flex-row items-center group hover:text-violet-700 transition-colors duration-2000 ">
-              <FaEnvelope size={25} className="mr-3 " />
-              <a href="#">Messages</a>
-            </li>
-            <li className="menu-item flex flex-row items-center group text-violet-700 ">
-              <FaBell size={25} className="mr-3" />
-              <a href="#">Notifications</a>
-            </li>
-          </ul>
-        </div>
-      </section>
+    <section className="h-screen flex flex-row bg-white">
+      <Sidebar2 />
 
-      <section className="right w-10/12 bg-slate-200 overflow-y-hidden">
-        <div className="header flex flex-row mt-10 justify-end">
-          <div className="icon-container flex flex-row mr-14">
-            <div className="icons flex flex-row border-r-2 border-gray-400 mr-4 text-violet-700">
-              <FaEnvelope size={25} className="mr-5 mt-2" />
-              <FaBell size={25} className="mr-5 mt-2" />
-            </div>
-            <div className="profile ml-3 flex items-center justify-center relative">
-              <FaUser
-                size={42}
-                className="rounded-full border border-gray-400 p-2"
-              />
-              <FaCaretDown
-                size={20}
-                className="ml-2 cursor-pointer"
-                onClick={toggleDropdown}
-              />
-              {dropdownVisible && (
-                <div
-                  ref={dropdownRef}
-                  className="absolute right-0 mr-2 mt-36 w-32 text-base bg-white border border-gray-300 rounded shadow-lg"
-                >
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                  >
-                    Edit Profile
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                  >
-                    Settings
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-red-500 font-semibold hover:bg-gray-100"
-                  >
-                    Logout
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+      <section className="right w-full bg-slate-200 overflow-y-hidden">
+        <Header title="" />
 
-        <div className="content flex flex-col h-full ">
+        <div className="content flex flex-col h-full">
           <div className="Notifications mt-10">
-            <h1 className=" text-violet-700 text-xl ml-32 font-normal">
+            <h1 className="text-violet-700 text-xl ml-32 font-normal">
               Notifications
             </h1>
             <div className="output flex mt-8 items-center justify-center">
