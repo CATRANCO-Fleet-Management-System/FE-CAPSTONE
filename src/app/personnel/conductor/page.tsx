@@ -3,10 +3,12 @@ import Sidebar from "@/app/components/Sidebar";
 import Header from "@/app/components/Header";
 import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation"; // Import useRouter
 
 const DashboardHeader = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
+  const router = useRouter(); // Initialize useRouter
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -60,7 +62,15 @@ const DashboardHeader = () => {
   };
 
   // Generate bus numbers
-  const busOptions = Array.from({ length: 11 }, (_, i) => `BUS ${String(i + 1).padStart(3, '0')}`);
+  const busOptions = Array.from(
+    { length: 11 },
+    (_, i) => `BUS ${String(i + 1).padStart(3, "0")}`
+  );
+
+  // Function to handle the cancel button click
+  const handleCancelClick = () => {
+    router.push("/personnel"); // Navigate to /personnel
+  };
 
   return (
     <section className="h-screen flex flex-row bg-white ">
@@ -170,7 +180,10 @@ const DashboardHeader = () => {
                     <button className="flex items-center justify-center px-4 py-2 border-2 border-blue-500 rounded-md text-blue-500 transition-colors duration-300 ease-in-out hover:bg-blue-50">
                       Add
                     </button>
-                    <button className="flex items-center justify-center px-4 py-2 border-2 border-red-500 rounded-md text-red-500 transition-colors duration-300 ease-in-out hover:bg-blue-50">
+                    <button
+                      onClick={handleCancelClick} // Add onClick handler
+                      className="flex items-center justify-center px-4 py-2 border-2 border-red-500 rounded-md text-red-500 transition-colors duration-300 ease-in-out hover:bg-blue-50"
+                    >
                       Cancel
                     </button>
                   </div>

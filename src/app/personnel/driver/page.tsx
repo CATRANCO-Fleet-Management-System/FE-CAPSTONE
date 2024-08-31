@@ -1,12 +1,14 @@
 "use client";
+import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "@/app/components/Sidebar";
 import Header from "@/app/components/Header";
-import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation"; // Import useRouter
 
 const DashboardHeader = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
+  const router = useRouter(); // Initialize useRouter
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -37,6 +39,7 @@ const DashboardHeader = () => {
         reader.readAsDataURL(file);
       }
     };
+
     return (
       <div className="relative w-64 h-64 bg-gray-100 border-2 border-dashed border-gray-300 rounded-full flex items-center justify-center cursor-pointer overflow-hidden">
         <input
@@ -60,7 +63,14 @@ const DashboardHeader = () => {
   };
 
   // Generate bus numbers
-  const busOptions = Array.from({ length: 11 }, (_, i) => `BUS ${String(i + 1).padStart(3, '0')}`);
+  const busOptions = Array.from(
+    { length: 11 },
+    (_, i) => `BUS ${String(i + 1).padStart(3, "0")}`
+  );
+
+  const handleCancel = () => {
+    router.push("/personnel"); // Navigate to /personnel
+  };
 
   return (
     <section className="h-screen flex flex-row bg-white ">
@@ -167,7 +177,10 @@ const DashboardHeader = () => {
                     <button className="flex items-center justify-center px-4 py-2 border-2 border-blue-500 rounded-md text-blue-500 transition-colors duration-300 ease-in-out hover:bg-blue-50">
                       Add
                     </button>
-                    <button className="flex items-center justify-center px-4 py-2 border-2 border-red-500 rounded-md text-red-500 transition-colors duration-300 ease-in-out hover:bg-blue-50">
+                    <button
+                      className="flex items-center justify-center px-4 py-2 border-2 border-red-500 rounded-md text-red-500 transition-colors duration-300 ease-in-out hover:bg-blue-50"
+                      onClick={handleCancel} // Add onClick handler for cancel button
+                    >
                       Cancel
                     </button>
                   </div>
