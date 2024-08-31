@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
               className="absolute right-0 mr-2 mt-44 w-32 text-base bg-white border border-gray-300 rounded shadow-lg"
             >
               <a
-                href="#"
+                href="/editprofile"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
               >
                 Edit Profile
