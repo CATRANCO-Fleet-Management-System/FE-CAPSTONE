@@ -100,7 +100,8 @@ const DashboardHeader = () => {
                   <Input
                     className="h-10 text-lg"
                     type="text"
-                    placeholder="Role"
+                    placeholder="Driver"
+                    disabled
                   />
                   <h1>License Number:</h1>
                   <Input

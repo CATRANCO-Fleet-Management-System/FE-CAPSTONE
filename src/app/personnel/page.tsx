@@ -21,13 +21,13 @@ const ButtonGroup = ({ activeButton, onClick }) => {
       </button>
       <button
         className={`px-4 py-2 border-2 rounded transition-colors duration-300 ease-in-out ${
-          activeButton === "conductors"
+          activeButton === "Passenger Assistant Officer"
             ? "border-blue-500 text-blue-500"
             : "border-transparent text-gray-700"
         }`}
-        onClick={() => onClick("conductors")}
+        onClick={() => onClick("Passenger Assistant Officer")}
       >
-        Conductors
+        Passenger Assistant Officer
       </button>
     </div>
   );
@@ -90,8 +90,8 @@ const RecordBox = ({ driverId, driverName, onDelete }) => {
   );
 };
 
-// Records Component
-const Records = ({ type, onDelete }) => {
+// Records Component with search functionality
+const Records = ({ type, searchTerm, onDelete }) => {
   const driverRecords = [
     { id: "001", name: "Driver 1" },
     { id: "002", name: "Driver 2" },
@@ -100,19 +100,24 @@ const Records = ({ type, onDelete }) => {
     { id: "005", name: "Driver 5" },
   ];
 
-  const conductorRecords = [
-    { id: "0005", name: "Conductor 1" },
-    { id: "0006", name: "Conductor 2" },
-    { id: "0007", name: "Conductor 3" },
-    { id: "0008", name: "Conductor 4" },
-    { id: "0009", name: "Conductor 5" },
+  const PAORecords = [
+    { id: "0005", name: "PAO 1" },
+    { id: "0006", name: "PAO 2" },
+    { id: "0007", name: "PAO 3" },
+    { id: "0008", name: "PAO 4" },
+    { id: "0009", name: "PAO 5" },
   ];
 
-  const records = type === "drivers" ? driverRecords : conductorRecords;
+  const records = type === "drivers" ? driverRecords : PAORecords;
+
+  // Filter records based on search term
+  const filteredRecords = records.filter((record) =>
+    record.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="record-box w-5/6 h-96 space-y-2">
-      {records.map((record) => (
+      {filteredRecords.map((record) => (
         <RecordBox
           key={record.id}
           driverId={record.id}
@@ -181,10 +186,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   );
 };
 
-// Main DashboardHeader Component
-const DashboardHeader = () => {
+
+const personnel = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [activeButton, setActiveButton] = useState("drivers");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(4); // Set the total number of pages as needed
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
@@ -246,6 +252,8 @@ const DashboardHeader = () => {
             <input
               type="text"
               placeholder="Find driver"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-1 px-4 py-2 border border-gray-500 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
@@ -266,7 +274,11 @@ const DashboardHeader = () => {
           </div>
           <div className="records flex flex-col h-full">
             <div className="output flex mt-4 items-center ml-14">
-              <Records type={activeButton} onDelete={handleDelete} />
+              <Records
+                type={activeButton}
+                searchTerm={searchTerm}
+                onDelete={handleDelete}
+              />
             </div>
             {/* Pagination Component */}
             <Pagination
@@ -286,4 +298,4 @@ const DashboardHeader = () => {
   );
 };
 
-export default DashboardHeader;
+export default personnel;

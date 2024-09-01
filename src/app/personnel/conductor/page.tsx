@@ -77,7 +77,7 @@ const DashboardHeader = () => {
       <Sidebar />
 
       <section className="w-full bg-slate-200">
-        <Header title="Add Conductor Record" />
+        <Header title="Add PAO Record" />
 
         <section className="right w-full overflow-y-hidden">
           <div className="forms-container ml-14">
@@ -101,7 +101,7 @@ const DashboardHeader = () => {
                     className="h-10 text-lg "
                     type="text"
                     placeholder="Role"
-                    value="Conductor"
+                    value="PAO"
                     disabled
                   />
                   <h1>License Number:</h1>
