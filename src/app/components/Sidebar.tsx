@@ -8,6 +8,7 @@ import {
   FaTruck,
   FaGasPump,
   FaCommentDots,
+  FaTools, // Import the tool icon
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -21,6 +22,11 @@ export default function Sidebar() {
       href: "/personnel",
       icon: <FaUser size={25} />,
       label: "Bus Personnel Management",
+    },
+    {
+      href: "/busmaintenance",
+      icon: <FaTools size={25} />, // Tool icon
+      label: "Bus Maintenance Management",
     },
     { href: "/bus-profiles", icon: <FaBus size={25} />, label: "Bus Profiles" },
     {
