@@ -202,7 +202,7 @@ const BusProfile = () => {
 
   // Handle the "Add New" button click
   const handleAddNewClick = () => {
-    router.push("/bus-maintenance/bus-add"); // Corrected path to the add-page
+    router.push("/bus-profiles/bus-add"); // Corrected path to the add-page
   };
 
   return (
