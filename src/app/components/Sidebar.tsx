@@ -24,7 +24,6 @@ export default function Sidebar() {
       icon: <FaUser size={25} />,
       label: "Bus Personnel Management",
     },
-z
     { href: "/bus-profiles", icon: <FaBus size={25} />, label: "Bus Profiles" },
     {
       href: "/bus-maintenance",
