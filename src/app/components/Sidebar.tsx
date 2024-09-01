@@ -24,11 +24,7 @@ export default function Sidebar() {
       icon: <FaUser size={25} />,
       label: "Bus Personnel Management",
     },
-    {
-      href: "/busmaintenance",
-      icon: <FaTools size={25} />, // Tool icon
-      label: "Bus Maintenance Management",
-    },
+z
     { href: "/bus-profiles", icon: <FaBus size={25} />, label: "Bus Profiles" },
     {
       href: "/bus-maintenance",
