@@ -232,7 +232,7 @@ const DashboardHeader = () => {
 
   // Handle the "Add New" button click
   const handleAddNewClick = () => {
-    router.push("bus-maintenance/maintenance-add"); // Navigate to the add-page.tsx
+    router.push("bus-maintenance/add-record"); // Navigate to the add-page.tsx
   };
 
   return (
