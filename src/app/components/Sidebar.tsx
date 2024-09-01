@@ -8,6 +8,7 @@ import {
   FaTruck,
   FaGasPump,
   FaCommentDots,
+  FaWrench,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -23,6 +24,11 @@ export default function Sidebar() {
       label: "Bus Personnel Management",
     },
     { href: "/bus-profiles", icon: <FaBus size={25} />, label: "Bus Profiles" },
+    {
+      href: "/bus-maintenance",
+      icon: <FaWrench size={25} />,
+      label: "Bus Maintenance Management",
+    },
     {
       href: "/dispatch-management",
       icon: <FaTruck size={25} />,
